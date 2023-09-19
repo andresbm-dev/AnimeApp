@@ -7,9 +7,9 @@ import javax.inject.Inject
 
 class AnimeApiRepositoryImpl @Inject constructor(private val apiService: ApiService):AnimeApiRepository{
 
-    override suspend fun getAnimeTopScore() : AnimeTopScoreModelApi? {
+    override suspend fun getAnimeTopScore( page:Int ) : AnimeTopScoreModelApi? {
         runCatching {
-       apiService.getAnimeTopScore("score","desc", null, page = "1")
+       apiService.getAnimeTopScore("score","desc", null, page = page.toString())
         }.onSuccess {
                 return it.body()
         }.onFailure {
