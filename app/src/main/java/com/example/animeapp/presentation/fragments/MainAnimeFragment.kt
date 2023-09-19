@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.animeapp.R
 import com.example.animeapp.databinding.FragmentMainAnimeBinding
+import com.example.animeapp.presentation.adapters.AnimeDiscoverAdapter
 import com.example.animeapp.presentation.adapters.CarrouselAnimeTopAdapter
 import com.example.animeapp.presentation.viewmodel.MainAnimeViewModel
 
@@ -21,6 +21,11 @@ class MainAnimeFragment : Fragment() {
 
     private val animeTopAdapter by lazy{
         CarrouselAnimeTopAdapter{
+            findNavController().navigate(MainAnimeFragmentDirections.actionMainAnimeFragmentToDetailAnimeFragment())
+        }
+    }
+    private val animeDiscoverAdapter by lazy{
+        AnimeDiscoverAdapter{
             findNavController().navigate(MainAnimeFragmentDirections.actionMainAnimeFragmentToDetailAnimeFragment())
         }
     }
@@ -37,7 +42,7 @@ class MainAnimeFragment : Fragment() {
 
 
         viewModel = ViewModelProvider(requireActivity())[MainAnimeViewModel::class.java]
-        viewModel.getAnimeTopScore()
+
         setupRecyclerView()
         initObservers()
         setupListeners()
@@ -51,8 +56,11 @@ class MainAnimeFragment : Fragment() {
     }
 
     private fun initObservers() {
-        viewModel.animeTopListLiveData.observe(this){
+        viewModel.animeTopListLiveData.observe(viewLifecycleOwner){
             animeTopAdapter.submitList(it)
+        }
+        viewModel.animeDiscoverListLiveData.observe(viewLifecycleOwner){
+            animeDiscoverAdapter.submitList(it)
         }
     }
 
@@ -60,6 +68,10 @@ class MainAnimeFragment : Fragment() {
         binding.rvAnimeTopScore.apply {
             layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
             adapter = animeTopAdapter
+        }
+        binding.rvAnimeDiscover.apply {
+            layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+            adapter = animeDiscoverAdapter
         }
     }
 

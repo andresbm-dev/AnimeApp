@@ -8,4 +8,8 @@ class GetAnimeTopUseCase @Inject constructor(private val animeApiRepositoryImpl:
     suspend fun  invoke(page :Int ) : AnimeTopScoreModelApi? {
         return animeApiRepositoryImpl.getAnimeTopScore(page)
     }
+    suspend fun  getAnimeDiscover(page :Int ) : AnimeTopScoreModelApi? {
+        return animeApiRepositoryImpl.getAnimeDiscover(page)
+    }
+
 }

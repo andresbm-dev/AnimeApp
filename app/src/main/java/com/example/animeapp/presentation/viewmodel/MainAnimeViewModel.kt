@@ -19,10 +19,23 @@ class MainAnimeViewModel @Inject constructor(private val useCase: GetAnimeTopUse
     val animeTopListLiveData: LiveData<List<AnimeTopScoreModel>?>
         get() = _animeTopList
 
+    private var _animeDiscoverList: MutableLiveData<List<AnimeTopScoreModel>?> = MutableLiveData()
+    val animeDiscoverListLiveData: LiveData<List<AnimeTopScoreModel>?>
+        get() = _animeDiscoverList
+    init {
+        getAnimeTopScore()
+        getAnimeDiscover()
+    }
     fun getAnimeTopScore() {
         viewModelScope.launch {
             val response = useCase.invoke(1)
             _animeTopList.postValue(response?.animeData)
+        }
+    }
+    private fun getAnimeDiscover() {
+        viewModelScope.launch {
+            val response = useCase.getAnimeDiscover(1)
+            _animeDiscoverList.postValue(response?.animeData)
         }
     }
 }

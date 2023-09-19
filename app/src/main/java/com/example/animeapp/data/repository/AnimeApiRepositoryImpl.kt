@@ -17,4 +17,15 @@ class AnimeApiRepositoryImpl @Inject constructor(private val apiService: ApiServ
         }
         return null
     }
+
+    override suspend fun getAnimeDiscover(page: Int): AnimeTopScoreModelApi? {
+        runCatching {
+            apiService.getAnimeTopScore(null,null, null, page = null)
+        }.onSuccess {
+            return it.body()
+        }.onFailure {
+            Log.i("abm", "Ha ocurrido un error ${it.message}")
+        }
+        return null
+    }
 }

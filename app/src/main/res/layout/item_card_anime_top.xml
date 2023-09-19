@@ -12,7 +12,7 @@
     <ImageView
         android:id="@+id/IvAnime"
         android:layout_width="200dp"
-        android:layout_height="350dp"
+        android:layout_height="250dp"
         tools:background="@color/black"
         android:scaleType="fitXY"
         />
