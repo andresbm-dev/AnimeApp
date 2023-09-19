@@ -1,0 +1,20 @@
+package com.example.animeapp.presentation.activity
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import androidx.activity.viewModels
+import com.example.animeapp.databinding.ActivityMainAnimeBinding
+import com.example.animeapp.presentation.viewmodel.MainAnimeViewModel
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
+class MainAnimeActivity : AppCompatActivity() {
+    private lateinit var binding : ActivityMainAnimeBinding
+    private  val viewModel : MainAnimeViewModel by viewModels()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainAnimeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        viewModel.getAnimeTopScore()
+    }
+}

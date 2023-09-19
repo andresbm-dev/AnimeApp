@@ -1,0 +1,12 @@
+package com.example.animeapp.domain.usecase
+
+import com.example.animeapp.data.repository.AnimeApiRepository
+import com.example.animeapp.domain.models.AnimeTopScoreModelApi
+import javax.inject.Inject
+
+class GetAnimeTopUseCase @Inject constructor(private val animeApiRepositoryImpl: AnimeApiRepository){
+
+    suspend fun  invoke() : AnimeTopScoreModelApi? {
+        return animeApiRepositoryImpl.getAnimeTopScore()
+    }
+}
