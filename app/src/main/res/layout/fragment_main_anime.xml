@@ -9,7 +9,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
+    <ProgressBar
+        android:id="@+id/progressApi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
         <LinearLayout
             android:id="@+id/topAppbar"
             android:layout_width="match_parent"
@@ -47,6 +57,18 @@
             tools:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             tools:listitem="@layout/item_card_anime_top">
         </androidx.recyclerview.widget.RecyclerView>
+        <ProgressBar
+            android:id="@+id/progressAnimeTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintTop_toTopOf="@+id/rvAnimeTopScore"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/rvAnimeTopScore"
+            />
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
@@ -55,6 +77,7 @@
             android:layout_marginTop="16dp"
             android:textSize="20dp"
             android:text="Discover"
+            android:visibility="gone"
             android:paddingLeft="16dp"
             android:textStyle="bold"
             />
@@ -66,8 +89,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_card_anime_discover"
-
-
+            />
+        <ProgressBar
+            android:id="@+id/progressAnimeDiscover"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

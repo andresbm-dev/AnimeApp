@@ -18,9 +18,6 @@ class MainAnimeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainAnimeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
         viewModel.getAnimeTopScore()
 
     }

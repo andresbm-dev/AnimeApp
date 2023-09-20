@@ -5,13 +5,14 @@ import com.example.animeapp.data.remote.ApiService
 import com.example.animeapp.domain.models.AnimeTopScoreModelApi
 import javax.inject.Inject
 
-class AnimeApiRepositoryImpl @Inject constructor(private val apiService: ApiService):AnimeApiRepository{
+class AnimeApiRepositoryImpl @Inject constructor(private val apiService: ApiService) :
+    AnimeApiRepository {
 
-    override suspend fun getAnimeTopScore( page:Int ) : AnimeTopScoreModelApi? {
+    override suspend fun getAnimeTopScore(page: Int): AnimeTopScoreModelApi? {
         runCatching {
-       apiService.getAnimeTopScore("score","desc", null, page = page.toString())
+            apiService.getAnimeTopScore("score", "desc", null, page = page.toString())
         }.onSuccess {
-                return it.body()
+            return it.body()
         }.onFailure {
             Log.i("abm", "Ha ocurrido un error ${it.message}")
         }
@@ -20,7 +21,7 @@ class AnimeApiRepositoryImpl @Inject constructor(private val apiService: ApiServ
 
     override suspend fun getAnimeDiscover(page: Int): AnimeTopScoreModelApi? {
         runCatching {
-            apiService.getAnimeTopScore(null,null, null, page = null)
+            apiService.getAnimeTopScore(null, null, null, page = page.toString())
         }.onSuccess {
             return it.body()
         }.onFailure {
