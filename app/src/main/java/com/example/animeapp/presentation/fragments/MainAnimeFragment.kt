@@ -24,12 +24,14 @@ class MainAnimeFragment : Fragment() {
     private lateinit var viewModel: MainAnimeViewModel
 
     private val animeTopAdapter by lazy{
-        CarrouselAnimeTopAdapter{
+        CarrouselAnimeTopAdapter{anime->
+            viewModel.getAnimeSelected(anime)
             findNavController().navigate(MainAnimeFragmentDirections.actionMainAnimeFragmentToDetailAnimeFragment())
         }
     }
     private val animeDiscoverAdapter by lazy{
-        AnimeDiscoverAdapter{
+        AnimeDiscoverAdapter{ anime->
+            viewModel.getAnimeSelected(anime)
             findNavController().navigate(MainAnimeFragmentDirections.actionMainAnimeFragmentToDetailAnimeFragment())
         }
     }

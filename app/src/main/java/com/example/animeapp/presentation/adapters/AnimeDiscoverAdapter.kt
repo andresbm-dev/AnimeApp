@@ -1,7 +1,10 @@
 package com.example.animeapp.presentation.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.view.animation.LinearInterpolator
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.Glide
@@ -36,6 +39,8 @@ class AnimeDiscoverAdapter(
         when (holder) {
             is BindViewHolder -> holder.bind(getItem(position), position)
         }
+        val animation = AnimationUtils.loadAnimation(holder.itemView.context, android.R.anim.fade_out);
+        holder.itemView.startAnimation(animation)
     }
 
     inner class BindViewHolder(private val binding: ItemCardAnimeDiscoverBinding) :
@@ -45,7 +50,10 @@ class AnimeDiscoverAdapter(
             Glide.with(ApplicationActivity.context).load(item.animeImages?.animeJpg?.animeImage)
                 .into(binding.ivAnime)
             binding.ivAnime.setOnClickListener {
-                onAnimeDiscoverClick(item)
+                startRotationAnimation(binding.ivAnime, newLambda = {onAnimeDiscoverClick(item)})
+            }
+            binding.containerCard.setOnClickListener {
+                startRotationAnimation(binding.ivAnime, newLambda = {onAnimeDiscoverClick(item)})
             }
             binding.titleAnime.text = item.animeTitle
             binding.tvDuration.text = item.animeDuration
@@ -53,8 +61,15 @@ class AnimeDiscoverAdapter(
                 binding.tvAnimeSeason.text = item.animeSeason
             else
                 binding.tvAnimeSeason.text = "Temporada no disponible"
-
-
+        }
+        private fun startRotationAnimation(view: View, newLambda:()->Unit){
+            view.animate().apply {
+                duration = 500
+                interpolator = LinearInterpolator()
+                rotationBy(360f)
+                withEndAction { newLambda() }
+                start()
+            }
         }
     }
 }

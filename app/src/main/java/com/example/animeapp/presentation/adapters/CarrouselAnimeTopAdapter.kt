@@ -1,7 +1,10 @@
 package com.example.animeapp.presentation.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.view.animation.LinearInterpolator
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.Glide
@@ -11,7 +14,7 @@ import com.example.animeapp.databinding.ItemCardAnimeTopBinding
 import com.example.animeapp.domain.models.AnimeTopScoreModel
 
 class CarrouselAnimeTopAdapter(
-    private val onChatClick: (AnimeTopScoreModel) -> Unit,
+    private val onClick: (AnimeTopScoreModel) -> Unit,
 
 ): ListAdapter<AnimeTopScoreModel, BaseListViewHolder<*>>(DiffUtilCallback)  {
 
@@ -29,6 +32,8 @@ class CarrouselAnimeTopAdapter(
         when (holder) {
             is BindViewHolder -> holder.bind(getItem(position), position)
         }
+        val animation = AnimationUtils.loadAnimation(holder.itemView.context, android.R.anim.fade_in);
+        holder.itemView.startAnimation(animation)
     }
 
     inner class BindViewHolder(private val binding: ItemCardAnimeTopBinding) : BaseListViewHolder<AnimeTopScoreModel>(binding.root) {
@@ -36,9 +41,18 @@ class CarrouselAnimeTopAdapter(
         override fun bind(item: AnimeTopScoreModel, position: Int)  {
             Glide.with(context).load(item.animeImages?.animeJpg?.animeImage).into(binding.IvAnime)
             binding.IvAnime.setOnClickListener {
-                onChatClick(item)
+                startRotationAnimation(binding.IvAnime, newLambda = {  onClick(item)})
             }
 
+        }
+        private fun startRotationAnimation(view: View, newLambda:()->Unit){
+            view.animate().apply {
+                duration = 500
+                interpolator = LinearInterpolator()
+                rotationBy(360f)
+                withEndAction { newLambda() }
+                start()
+            }
         }
     }
 }

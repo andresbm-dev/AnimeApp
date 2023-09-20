@@ -14,7 +14,7 @@ data class AnimeTopScoreModel(
     @SerializedName("airing") var animeAiring : Boolean? = null,
     @SerializedName("duration") var animeDuration : String? = null,
     @SerializedName("season") var animeSeason : String? = null,
-
+    @SerializedName("score") var animeScore : String? = null,
 )
 
 data class ImagesAnime(

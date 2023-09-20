@@ -35,6 +35,12 @@ class MainAnimeViewModel @Inject constructor(private val useCase: GetAnimeTopUse
     private var _progressAnimeDiscover: MutableLiveData<Boolean> = MutableLiveData()
     val progressAnimeDiscoverLiveData: LiveData<Boolean>
         get() = _progressAnimeDiscover
+
+    private var _animeSelected: MutableLiveData<AnimeTopScoreModel> = MutableLiveData()
+    val animeSelectedLiveData: LiveData<AnimeTopScoreModel>
+        get() = _animeSelected
+
+
     private var page = 0
     private var pageAnimeTop = 0
     init {
@@ -78,4 +84,9 @@ class MainAnimeViewModel @Inject constructor(private val useCase: GetAnimeTopUse
                 _progressApi.postValue(false)
         }
     }
+
+    fun getAnimeSelected(animeSelected : AnimeTopScoreModel){
+        _animeSelected.postValue(animeSelected)
+    }
+
 }
