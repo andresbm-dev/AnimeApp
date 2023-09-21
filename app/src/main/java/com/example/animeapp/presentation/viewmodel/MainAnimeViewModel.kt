@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.animeapp.domain.models.AnimeTopScoreModel
 import com.example.animeapp.domain.usecase.GetAnimeTopUseCase
+import com.example.animeapp.utils.ApiResponseStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -56,11 +57,15 @@ class MainAnimeViewModel @Inject constructor(private val useCase: GetAnimeTopUse
                 _progressAnimeTop.postValue(true)
             }
             withContext(Dispatchers.IO){
-                val response = useCase.invoke(pageAnimeTop)
-                response?.animeData?.forEach {
-                    animeTopList?.add(it)
+                when(val response = useCase.invoke(pageAnimeTop)){
+                    is ApiResponseStatus.Error -> TODO()
+                    is ApiResponseStatus.Success -> {
+                        response.data?.animeData?.forEach {
+                            animeTopList?.add(it)
+                        }
+                        _animeTopList.postValue(animeTopList)
+                    }
                 }
-                _animeTopList.postValue(animeTopList)
             }
             _progressAnimeTop.postValue(false)
 
@@ -73,10 +78,15 @@ class MainAnimeViewModel @Inject constructor(private val useCase: GetAnimeTopUse
                 _progressAnimeDiscover.postValue(true)
             }
             withContext(Dispatchers.IO){
-                val  response = useCase.getAnimeDiscover(page)
-                response?.animeData?.forEach {
-                    animeDiscoverList?.add(it)
+                when(val response = useCase.getAnimeDiscover(page)){
+                    is ApiResponseStatus.Error -> TODO()
+                    is ApiResponseStatus.Success -> {
+                        response.data?.animeData?.forEach {
+                            animeDiscoverList?.add(it)
+                        }
+                    }
                 }
+
             }
             _animeDiscoverList.postValue(animeDiscoverList)
             _progressAnimeDiscover.postValue(false)
