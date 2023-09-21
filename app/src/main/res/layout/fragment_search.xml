@@ -8,6 +8,7 @@
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ImageView
@@ -19,30 +20,25 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             />
+
+        <TextView
+            android:id="@+id/tvSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Buscador"
+            app:layout_constraintTop_toBottomOf="@id/backButton"
+            android:textSize="18sp" />
         <androidx.cardview.widget.CardView
             android:id="@+id/card_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="6dp"
-            app:layout_constraintTop_toBottomOf="@+id/backButton"
+            app:layout_constraintTop_toBottomOf="@+id/tvSearch"
             android:layout_marginTop="16dp"
             android:elevation="8dp"
             app:cardCornerRadius="8dp"
 >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Buscador"
-                    android:textSize="18sp" />
-
-            </LinearLayout>
 
             <EditText
                 android:id="@+id/et_search"
@@ -54,9 +50,37 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:singleLine="true"
-
-                app:layout_constraintTop_toTopOf="parent" />
+                android:hint="Busca aqui tu anime favorito "
+                android:background="@android:color/transparent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginBottom="8dp"/>
         </androidx.cardview.widget.CardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAnimeTopScore"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:foregroundGravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_search"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+            tools:listitem="@layout/item_card_anime_top"
+            android:visibility="gone"
+            tools:visibility="visible"
+            />
+        <TextView
+            android:id="@+id/tvSearchResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/card_search"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="16dp"
+            />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
